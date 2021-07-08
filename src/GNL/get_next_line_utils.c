@@ -21,9 +21,9 @@ void	ft_bzero(void *b, size_t len)
 	}
 }
 
-int		ft_strlen_endl(char const *s)
+int	ft_strlen_endl(char const *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s && s[i] && s[i] != '\n')
@@ -31,9 +31,9 @@ int		ft_strlen_endl(char const *s)
 	return (i);
 }
 
-int		ft_strchr_pos(const char *s, int c)
+int	ft_strchr_pos(const char *s, int c)
 {
-	int pos;
+	int	pos;
 
 	pos = 0;
 	while (s && s[pos])
@@ -55,7 +55,8 @@ char	*ft_strjoin_to_eol(char *s1, char *buf)
 
 	i = 0;
 	j = 0;
-	if (!(tab = malloc(ft_strlen_endl(s1) + ft_strlen_endl(buf) + 1)))
+	tab = malloc(ft_strlen_endl(s1) + ft_strlen_endl(buf) + 1);
+	if (!tab)
 		return (NULL);
 	while (s1 && s1[j])
 		tab[i++] = s1[j++];

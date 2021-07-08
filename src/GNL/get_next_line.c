@@ -12,24 +12,25 @@
 
 #include "get_next_line.h"
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line, int i)
 {
 	static char		buf[FOPEN_MAX][BUFFER_SIZE + 1];
 	int				ret;
-	int				i;
 
-	if (BUFFER_SIZE < 1 || fd < 0 || fd > FOPEN_MAX || !line
-					|| !(*line = ft_strjoin_to_eol(NULL, buf[fd])))
+	if (BUFFER_SIZE < 1 || fd < 0 || fd > FOPEN_MAX || !line)
+		return (-1);
+	*line = ft_strjoin_to_eol(NULL, buf[fd]);
+	if (!*line)
 		return (-1);
 	ret = 1;
 	while (ft_strchr_pos(buf[fd], '\n') == -1 && ret && ret != -1)
 	{
 		ft_bzero(buf[fd], BUFFER_SIZE + 1);
 		ret = read(fd, buf[fd], BUFFER_SIZE);
-		if (!(*line = ft_strjoin_to_eol(*line, buf[fd])))
+		*line = ft_strjoin_to_eol(*line, buf[fd]);
+		if (!*line)
 			return (-1);
 	}
-	i = 0;
 	ret = ft_strchr_pos(buf[fd], '\n') + 1;
 	if (buf[fd][0] == 0)
 		return (0);

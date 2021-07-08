@@ -12,6 +12,16 @@
 
 #include "push_swap.h"
 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	unsigned int	x;
+
+	x = 0;
+	while (s1[x] && s2[x] && s1[x] == s2[x])
+		x++;
+	return (((unsigned char *)s1)[x] - ((unsigned char *)s2)[x]);
+}
+
 void	wrong_instruction(t_stack *s_a, t_stack *s_b, char *line)
 {
 	free(line);
@@ -46,15 +56,14 @@ void	do_instruction(t_stack *s_a, t_stack *s_b, char *line)
 	else if (!ft_strcmp(line, "ss"))
 		ss(s_a, s_b);
 	else
-	wrong_instruction(s_a, s_b, line);
+		wrong_instruction(s_a, s_b, line);
 }
 
 void	get_instruction(t_stack *s_a, t_stack *s_b)
 {
 	char	*line;
 
-
-	while (get_next_line(0, &line))
+	while (get_next_line(0, &line, 0))
 	{
 		do_instruction(s_a, s_b, line);
 		free(line);
@@ -62,11 +71,11 @@ void	get_instruction(t_stack *s_a, t_stack *s_b)
 	free(line);
 }
 
-int		main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	t_stack	s_a;
 	t_stack	s_b;
-	int j;
+	int		j;
 
 	j = 0;
 	stack_init(&s_a, argc - 1, '\0');
@@ -76,7 +85,7 @@ int		main(int argc, char *argv[])
 	{
 		if (!check_argv(argv[j], &s_a, &s_b))
 			return (0);
-		s_a.val[j-1] = ft_atoi(argv[j]);
+		s_a.val[j - 1] = ft_atoi(argv[j]);
 	}
 	if (!check_duplicates(&s_a, &s_b))
 		return (0);

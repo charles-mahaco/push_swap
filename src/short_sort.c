@@ -57,11 +57,11 @@ void	sort_four(t_stack *s_a, t_stack *s_b)
 
 void	sort_three(t_stack *s_a)
 {
-	if (s_a->val[0] > s_a->val[1] && s_a->val[1] < s_a->val[2] &&
-		s_a->val[0] < s_a->val[2])
+	if (s_a->val[0] > s_a->val[1] && s_a->val[1] < s_a->val[2]
+		&& s_a->val[0] < s_a->val[2])
 		sab(s_a);
-	if (s_a->val[0] > s_a->val[1] && s_a->val[1] > s_a->val[2] &&
-		s_a->val[0] > s_a->val[2])
+	if (s_a->val[0] > s_a->val[1] && s_a->val[1] > s_a->val[2]
+		&& s_a->val[0] > s_a->val[2])
 	{
 		sab(s_a);
 		rrab(s_a);
@@ -75,7 +75,26 @@ void	sort_three(t_stack *s_a)
 		sab(s_a);
 		rrab(s_a);
 	}
-	if (s_a->val[0] < s_a->val[1] && s_a->val[1] > s_a->val[2] &&
-		s_a->val[0] > s_a->val[2])
+	if (s_a->val[0] < s_a->val[1] && s_a->val[1] > s_a->val[2]
+		&& s_a->val[0] > s_a->val[2])
 		rrab(s_a);
+}
+
+void	large_sort(t_stack *s_a, t_stack *s_b)
+{
+	sort_median(s_a, s_a->len_max);
+	while (s_b->len != (int)(s_a->len_max * s_a->sort_turn))
+	{
+		if (s_a->val[0] < s_a->midpoint)
+			pab(s_b, s_a);
+		else
+		{
+			get_limits(s_b, s_b->len);
+			if (s_b->val[0] != s_b->lowest && s_b->val[0] != s_b->highest)
+				rr(s_a, s_b);
+			else
+				rab(s_a);
+		}
+	}
+	large_sort_b(s_a, s_b);
 }

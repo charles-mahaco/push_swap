@@ -36,12 +36,11 @@ void	shortest_path(t_stack *s_a, int len)
 
 void	get_limits(t_stack *s_a, int len)
 {
-	int i;
-	int tmp;
-	int *copy;
+	int	i;
+	int	tmp;
+	int	*copy;
 
-	if (!(copy = ft_calloc(sizeof(int), len + 1)))
-		malloc_error();
+	copy = ft_calloc(sizeof(int), len + 1);
 	i = -1;
 	while (++i < len)
 		copy[i] = s_a->val[i];
@@ -56,7 +55,6 @@ void	get_limits(t_stack *s_a, int len)
 			i = -1;
 		}
 	}
-	i = -1;
 	s_a->highest = copy[len - 1];
 	s_a->lowest = copy[0];
 	free(copy);
@@ -65,12 +63,11 @@ void	get_limits(t_stack *s_a, int len)
 
 void	sort_median(t_stack *s_a, int len)
 {
-	int i;
-	int tmp;
-	int *copy;
+	int	i;
+	int	tmp;
+	int	*copy;
 
-	if (!(copy = ft_calloc(sizeof(int), len + 1)))
-		malloc_error();
+	copy = ft_calloc(sizeof(int), len + 1);
 	s_a->sort_turn += s_a->sort_step;
 	i = -1;
 	while (++i < len)
@@ -92,7 +89,7 @@ void	sort_median(t_stack *s_a, int len)
 	free(copy);
 }
 
-int		is_sorted(t_stack *s_a, t_stack *s_b, int to_free)
+int	is_sorted(t_stack *s_a, t_stack *s_b, int to_free)
 {
 	int		i;
 
@@ -110,28 +107,23 @@ int		is_sorted(t_stack *s_a, t_stack *s_b, int to_free)
 	return (1);
 }
 
-int		is_next_lowest(t_stack *s_b)
+int	is_next_low_high(t_stack *s_b, int high)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < s_b->len)
 	{
-		if (s_b->val[i] != s_b->lowest && s_b->val[i] < s_b->val[0])
-			return (0);
-	}
-	return (1);
-}
-
-int		is_next_highest(t_stack *s_b)
-{
-	int i;
-
-	i = -1;
-	while (++i < s_b->len)
-	{
-		if (s_b->val[i] != s_b->highest && s_b->val[i] > s_b->val[0])
-			return (0);
+		if (high)
+		{
+			if (s_b->val[i] != s_b->highest && s_b->val[i] > s_b->val[0])
+				return (0);
+		}
+		else
+		{
+			if (s_b->val[i] != s_b->lowest && s_b->val[i] < s_b->val[0])
+				return (0);
+		}
 	}
 	return (1);
 }

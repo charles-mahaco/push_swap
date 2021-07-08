@@ -12,25 +12,24 @@
 
 #include "push_swap.h"
 
-int		main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	t_stack	s_a;
 	t_stack	s_b;
-	int j;
+	int		j;
 
-	j = 1;
+	j = 0;
 	if (argc == 1)
 		return (0);
 	stack_init(&s_a, argc - 1, 'a');
 	stack_init(&s_b, argc - 1, 'b');
-	while (j < argc)
+	while (++j < argc)
 	{
 		if (!check_argv(argv[j], &s_a, &s_b))
 			return (0);
-		s_a.val[j-1] = ft_atoi(argv[j]);
-		j++;
+		s_a.val[j - 1] = ft_atoi(argv[j]);
 	}
-	s_a.val[j-1] = '\0';
+	s_a.val[j - 1] = '\0';
 	if (!check_duplicates(&s_a, &s_b) || is_sorted(&s_a, &s_b, 1))
 		return (0);
 	if (argc < 7)

@@ -12,12 +12,12 @@
 
 #include "push_swap.h"
 
-int 	abs_value(int a)
+int	abs_value(int a)
 {
 	if (a < 0)
 		return (-a);
 	else
-    	return (a);
+		return (a);
 }
 
 void	*ft_calloc(size_t count, size_t size)
@@ -26,17 +26,18 @@ void	*ft_calloc(size_t count, size_t size)
 	size_t	i;
 
 	i = 0;
-	if (!(n = malloc(size * count)))
-		return (NULL);
+	n = malloc(size * count);
+	if (!n)
+		malloc_error();
 	while (i < (size * count))
 	{
-		((char*)n)[i] = 0;
+		((char *)n)[i] = 0;
 		i++;
 	}
 	return (n);
 }
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int					i;
 	int					signe;
@@ -49,7 +50,10 @@ int		ft_atoi(const char *str)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
-		signe = (str[i] == '-') ? -1 : 1;
+		if (str[i] == '-')
+			signe = -1;
+		else
+			signe = 1;
 		i++;
 	}
 	while (str[i] > 47 && str[i] < 58)
@@ -70,18 +74,8 @@ size_t	ft_strlen( char *s)
 	return (i);
 }
 
-void	malloc_error()
+void	malloc_error(void)
 {
 	write(1, "Error\n", 6);
 	exit(1);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	unsigned int x;
-
-	x = 0;
-	while (s1[x] && s2[x] && s1[x] == s2[x])
-		x++;
-	return (((unsigned char *)s1)[x] - ((unsigned char *)s2)[x]);
 }

@@ -12,10 +12,10 @@
 
 #include "push_swap.h"
 
-int		check_duplicates(t_stack *s_a, t_stack *s_b)
+int	check_duplicates(t_stack *s_a, t_stack *s_b)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < s_a->len)
@@ -28,14 +28,14 @@ int		check_duplicates(t_stack *s_a, t_stack *s_b)
 				write(1, "Error\n", 6);
 				free(s_a->val);
 				free(s_b->val);
-				return(0);
+				return (0);
 			}
 		}
 	}
-	return(1);
+	return (1);
 }
 
-int		check_int_overflow(char *str)
+int	check_int_overflow(char *str)
 {
 	if (str[0] == '-')
 	{
@@ -50,13 +50,11 @@ int		check_int_overflow(char *str)
 	return (0);
 }
 
-int check_argv(char *str, t_stack *s_a, t_stack *s_b)
+int	check_argv(char *str, t_stack *s_a, t_stack *s_b)
 {
 	int	i;
-	int	len;
 
 	i = 0;
-	len = ft_strlen(&str[i]);
 	if (str[i] == '-' && (str[i + 1] > 47 && str[i + 1] < 58))
 		i++;
 	while (str[i])
@@ -66,23 +64,25 @@ int check_argv(char *str, t_stack *s_a, t_stack *s_b)
 			write(1, "Error\n", 6);
 			free(s_a->val);
 			free(s_b->val);
-			return(0);
+			return (0);
 		}
 		i++;
 	}
-	if (len > 10 || (len == 10 && check_int_overflow(str)))
+	if (ft_strlen(&str[0]) > 10 || (ft_strlen(&str[0]) == 10
+			&& check_int_overflow(str)))
 	{
 		write(1, "Error\n", 6);
 		free(s_a->val);
 		free(s_b->val);
 		return (0);
 	}
-	return(1);
+	return (1);
 }
 
 void	stack_init(t_stack *s, int len, char id)
 {
-	if (!(s->val = ft_calloc(sizeof(*s->val) + 1, len)))
+	s->val = ft_calloc(sizeof(*s->val) + 1, len);
+	if (!s->val)
 		malloc_error();
 	s->stack_id = id;
 	if (s->stack_id == 'a')

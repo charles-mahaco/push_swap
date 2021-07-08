@@ -12,9 +12,9 @@
 
 #include "push_swap.h"
 
-int		get_to_be_sorted(t_stack *s_b)
+int	get_to_be_sorted(t_stack *s_b)
 {
-	int to_be_sorted;
+	int	to_be_sorted;
 
 	s_b->bottom = 0;
 	get_limits(s_b, s_b->len);
@@ -22,13 +22,13 @@ int		get_to_be_sorted(t_stack *s_b)
 	{
 		to_be_sorted = s_b->lowest;
 		if (s_b->low_path > s_b->len / 2)
-				s_b->bottom = 1;
+			s_b->bottom = 1;
 	}
 	else
 	{
 		to_be_sorted = s_b->highest;
 		if (s_b->high_path > s_b->len / 2)
-				s_b->bottom = 1;
+			s_b->bottom = 1;
 	}
 	return (to_be_sorted);
 }
@@ -37,9 +37,9 @@ void	do_shortest_path(t_stack *s_a, t_stack *s_b, int to_be_sorted)
 {
 	while (s_b->val[0] != to_be_sorted)
 	{
-		if (s_b->len > 25 && s_b->sorted_ahead < 2 &&
-			((to_be_sorted == s_b->lowest && is_next_lowest(s_b)) ||
-				(to_be_sorted == s_b->highest && is_next_highest(s_b))))
+		if (s_b->len > 25 && s_b->sorted_ahead < 2
+			&& ((to_be_sorted == s_b->lowest && is_next_low_high(s_b, 0))
+				|| (to_be_sorted == s_b->highest && is_next_low_high(s_b, 1))))
 		{
 			while (s_a->possible_rr)
 				rab(s_a);
@@ -51,8 +51,8 @@ void	do_shortest_path(t_stack *s_a, t_stack *s_b, int to_be_sorted)
 		else
 		{
 			if (s_a->possible_rr)
-			while (s_a->possible_rr)
-				rr(s_a, s_b);
+				while (s_a->possible_rr)
+					rr(s_a, s_b);
 			else
 				rab(s_b);
 		}
@@ -106,18 +106,20 @@ void	fill_b(t_stack *s_a, t_stack *s_b)
 		}
 	}
 	if (s_a->sort_turn < 1)
+	{
 		while (s_a->val[0] < s_a->previous_midpoint)
-				rab(s_a);
+			rab(s_a);
 		else
 			if (s_a->sort_turn >= 1)
 				rrab(s_a);
+	}
 }
 
 void	large_sort_b(t_stack *s_a, t_stack *s_b)
 {
-	int to_be_sorted;
+	int	to_be_sorted;
 
-	while(s_b->len > 0)
+	while (s_b->len > 0)
 	{
 		to_be_sorted = get_to_be_sorted(s_b);
 		do_shortest_path(s_a, s_b, to_be_sorted);
@@ -130,23 +132,4 @@ void	large_sort_b(t_stack *s_a, t_stack *s_b)
 		large_sort_b(s_a, s_b);
 	else if (s_a->sort_turn > 1)
 		rab(s_a);
-}
-
-void	large_sort(t_stack *s_a, t_stack *s_b)
-{
-	sort_median(s_a, s_a->len_max);
-	while (s_b->len != (int)(s_a->len_max * s_a->sort_turn))
-	{
-		if (s_a->val[0] < s_a->midpoint)
-			pab(s_b, s_a);
-		else
-		{
-			get_limits(s_b, s_b->len);
-			if (s_b->val[0] != s_b->lowest && s_b->val[0] != s_b->highest)
-				rr(s_a, s_b);
-			else
-				rab(s_a);
-		}
-	}
-	large_sort_b(s_a, s_b);
 }
