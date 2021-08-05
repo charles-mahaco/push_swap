@@ -68,7 +68,7 @@ int	check_argv(char *str, t_stack *s_a, t_stack *s_b)
 		}
 		i++;
 	}
-	if (ft_strlen(&str[0]) > 10 || (ft_strlen(&str[0]) == 10
+	if (ft_strlen(&str[0]) > 11 || (ft_strlen(&str[0]) <= 11
 			&& check_int_overflow(str)))
 	{
 		write(1, "Error\n", 6);
@@ -85,7 +85,7 @@ void	stack_init(t_stack *s, int len, char id)
 	if (!s->val)
 		malloc_error();
 	s->stack_id = id;
-	if (s->stack_id == 'a')
+	if (s->stack_id == 'a' || s->stack_id == 'c')
 		s->len = len;
 	else
 		s->len = 0;
@@ -94,7 +94,10 @@ void	stack_init(t_stack *s, int len, char id)
 	s->highest = 0;
 	s->midpoint = 0;
 	s->sort_turn = 0;
-	s->sort_step = 0.25;
+	if (len < 300)
+		s->sort_step = 0.25;
+	else
+		s->sort_step = 0.2;
 	s->sorted_ahead = 0;
 	s->high_sorted_ahead = 0;
 	s->previous_midpoint = 0;

@@ -21,7 +21,7 @@
 #  define BUFFER_SIZE 32
 # endif
 
-int		get_next_line(int fd, char **line);
+int		get_next_line(int fd, char **line, int i);
 void	ft_bzero(void *b, size_t len);
 int		ft_strlen_endl(char const *s);
 int		ft_strchr_pos(const char *s, int c);

@@ -94,25 +94,23 @@ void	fill_b(t_stack *s_a, t_stack *s_b)
 		rab(s_a);
 	while (s_a->val[0] >= s_a->previous_midpoint)
 	{
-		if (s_a->val[0] < s_a->midpoint && s_a->sort_turn <= 1)
+		if (s_a->val[0] < s_a->midpoint)
 			pab(s_b, s_a);
-		else
-		{
-			get_limits(s_b, s_b->len);
-			if (s_b->val[0] != s_b->lowest && s_b->val[0] != s_b->highest)
-				rr(s_a, s_b);
-			else
-				rab(s_a);
-		}
+		get_limits(s_b, s_b->len);
+		if (s_a->val[0] >= s_a->midpoint && s_b->val[0]
+			!= s_b->lowest && s_b->val[0] != s_b->highest)
+			rr(s_a, s_b);
+		else if (s_a->val[0] >= s_a->midpoint)
+			rab(s_a);
 	}
 	if (s_a->sort_turn < 1)
 	{
 		while (s_a->val[0] < s_a->previous_midpoint)
 			rab(s_a);
-		else
-			if (s_a->sort_turn >= 1)
-				rrab(s_a);
 	}
+	else
+		if (s_a->sort_turn >= 1)
+			rrab(s_a);
 }
 
 void	large_sort_b(t_stack *s_a, t_stack *s_b)

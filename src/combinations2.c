@@ -28,7 +28,7 @@ void	ss(t_stack *s_a, t_stack *s_b)
 		s_b->val[0] = s_b->val[1];
 		s_b->val[1] = tmp;
 	}
-	if (s_a->stack_id)
+	if (s_a->stack_id != 'c')
 		write(1, "ss\n", 3);
 }
 
@@ -53,7 +53,7 @@ void	rr(t_stack *s_a, t_stack *s_b)
 			s_b->val[len] = s_b->val[len + 1];
 		s_b->val[len - 1] = tmp;
 	}
-	if (s_a->stack_id)
+	if (s_a->stack_id != 'c')
 		write(1, "rr\n", 3);
 	if (s_a->possible_rr)
 		s_a->possible_rr--;
@@ -80,6 +80,6 @@ void	rrr(t_stack *s_a, t_stack *s_b)
 			s_b->val[len] = s_b->val[len - 1];
 		s_b->val[0] = tmp;
 	}
-	if (s_a->stack_id)
+	if (s_a->stack_id != 'c')
 		write(1, "rrr\n", 4);
 }

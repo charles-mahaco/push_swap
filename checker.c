@@ -78,9 +78,10 @@ int	main(int argc, char *argv[])
 	int		j;
 
 	j = 0;
-	stack_init(&s_a, argc - 1, '\0');
+	if (argc == 1)
+		return (0);
+	stack_init(&s_a, argc - 1, 'c');
 	stack_init(&s_b, argc - 1, '\0');
-	s_a.len = argc - 1;
 	while (++j < argc)
 	{
 		if (!check_argv(argv[j], &s_a, &s_b))
