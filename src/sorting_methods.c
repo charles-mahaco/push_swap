@@ -84,7 +84,7 @@ void	sort_median(t_stack *s_a, int len)
 		}
 	}
 	s_a->midpoint = copy[(int)(len * s_a->sort_turn)];
-	if (s_a->sort_turn == 1)
+	if (s_a->sort_turn >= 1)
 		s_a->midpoint = copy[len - 1];
 	free(copy);
 }

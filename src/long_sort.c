@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 int	get_to_be_sorted(t_stack *s_b)
 {

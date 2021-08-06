@@ -94,9 +94,11 @@ void	stack_init(t_stack *s, int len, char id)
 	s->highest = 0;
 	s->midpoint = 0;
 	s->sort_turn = 0;
-	if (len < 300)
+	if (len < 30)
+		s->sort_step = 0.5;
+	else if (len >= 30 && len < 300)
 		s->sort_step = 0.25;
-	else
+	else if (len >= 300)
 		s->sort_step = 0.2;
 	s->sorted_ahead = 0;
 	s->high_sorted_ahead = 0;
