@@ -8,7 +8,7 @@ The obective is to sort A.
 ##### In order to do this, we will only have access to the following operation:
 * `sa` swap the first two elements of A (nothing will happen if there aren’t enough elements).
 * `sb` swap the first two elements of A (nothing will happen if there aren’t enough elements).
-* `sc` sa and sb at the same time.
+* `ss` sa and sb at the same time.
 * `pa` take the first element from B and move it to the first position on the A list (nothing will happen if B is empty).
 * `pb` take the first element from A and move it to the first position on the B list (nothing will happen if A is empty).
 * `ra` rotate A toward the beginning, the first element will become the last.
